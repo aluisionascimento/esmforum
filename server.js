@@ -1,6 +1,9 @@
 const express = require('express')
 const modelo = require('./modelo.js');
 
+// Importando o novo Router de Votos
+const votosRouter = require('./routes/votos.js');
+
 const app = express()
 app.use(express.json());
 
@@ -57,6 +60,9 @@ app.post('/respostas', (req, res) => {
     res.status(500).json(erro.message); 
   } 
 });
+
+// Princípio Aberto/Fechado (OCP): Adicionamos a funcionalidade apenas "pluvando" o router.
+app.use('/votos', votosRouter);
 
 // espera e trata requisições de clientes
 const port = 5000;
